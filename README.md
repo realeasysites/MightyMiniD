@@ -25,7 +25,9 @@ The server refuses to start if `ADMIN_PASSWORD` or `SESSION_SECRET` is missing o
 
 ## Deploying
 
-Any Node host works (Render, Railway, a VPS). Two things matter:
+**Render (recommended):** push this folder to GitHub, then in Render choose **New > Blueprint** and pick the repo. `render.yaml` sets up the web service, a 1 GB persistent disk for the database, and the environment variables. Render will ask you for `ADMIN_PASSWORD`, `SITE_URL` and the `SMTP_*` values; `SESSION_SECRET` is generated for you. The disk needs a paid instance (Starter); on the free plan every booking request is erased on each deploy or restart.
+
+Any other Node host works too (Railway, a VPS). Two things matter:
 
 1. Set the `.env` values as environment variables on the host.
 2. Point `DB_PATH` at a **persistent disk**. On hosts with temporary file systems the SQLite file (and every lead) is wiped on redeploy otherwise.
