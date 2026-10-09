@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dashboard | Mighty Mini Donuts</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Figtree:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <h1>Mighty Dashboard</h1>
+    <div class="right">
+      <a href="/" target="_blank" rel="noopener">View site</a>
+      <button class="link" type="button" id="logout">Log out</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-leads" aria-selected="true" aria-controls="panel-leads">Bookings</button>
+    <button class="tab" role="tab" id="tab-stops" aria-selected="false" aria-controls="panel-stops">Schedule</button>
+  </div>
+
+  <section id="panel-leads" role="tabpanel" aria-labelledby="tab-leads">
+    <div class="stats" id="stats"></div>
+    <div class="toolbar">
+      <span class="hint" id="filterHint">Showing all requests</span>
+      <a class="btn btn-sm" href="/admin/api/leads.csv">Export to spreadsheet</a>
+    </div>
+    <div class="leads" id="leads"></div>
+  </section>
+
+  <section id="panel-stops" role="tabpanel" aria-labelledby="tab-stops" hidden>
+    <form class="stop-form" id="stopForm" novalidate>
+      <h2>Add a stop</h2>
+      <div class="grid3">
+        <label for="s-start">Start date<input id="s-start" name="start_date" type="date" required></label>
+        <label for="s-end">End date <span class="opt">(multi-day)</span><input id="s-end" name="end_date" type="date"></label>
+        <label for="s-hours">Hours <span class="opt">(optional)</span><input id="s-hours" name="hours" placeholder="10am to 8pm"></label>
+      </div>
+      <div class="grid3">
+        <label for="s-place">Where<input id="s-place" name="place" required placeholder="Fryeburg Fair"></label>
+        <label for="s-town">Town <span class="opt">(optional)</span><input id="s-town" name="town" placeholder="Fryeburg"></label>
+        <label for="s-note">Note <span class="opt">(optional)</span><input id="s-note" name="note" placeholder="Near the main gate"></label>
+      </div>
+      <button class="btn btn-red" type="submit">Add to the website</button>
+      <p class="err" id="stopErr" role="alert" hidden></p>
+    </form>
+    <div class="leads" id="stops"></div>
+  </section>
+</main>
+
+<script src="/admin/admin.js" defer></script>
+</body>
+</html>
