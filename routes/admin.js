@@ -66,6 +66,13 @@ router.patch('/api/leads/:id', (req, res) => {
   res.json({ lead: db.prepare('SELECT * FROM leads WHERE id = ?').get(id) });
 });
 
+// Delete a request that isn't a real lead (spam, test, wrong number).
+router.delete('/api/leads/:id', (req, res) => {
+  const info = db.prepare('DELETE FROM leads WHERE id = ?').run(Number(req.params.id));
+  if (!info.changes) return res.status(404).json({ error: 'Not found' });
+  res.json({ ok: true });
+});
+
 router.get('/api/leads.csv', (req, res) => {
   const rows = db.prepare('SELECT * FROM leads ORDER BY created_at DESC').all();
   const cols = ['created_at', 'status', 'name', 'phone', 'email', 'event_type', 'event_date', 'guests', 'town', 'notes', 'admin_notes'];

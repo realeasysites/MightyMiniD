@@ -109,6 +109,16 @@
     }
     var saved = el('span', 'saved');
     actions.appendChild(saved);
+    var del = el('button', 'btn btn-sm', 'Delete');
+    del.type = 'button';
+    var armed = false;
+    del.addEventListener('click', function () {
+      if (!armed) { armed = true; del.textContent = 'Tap again to delete'; setTimeout(function () { armed = false; del.textContent = 'Delete'; }, 3000); return; }
+      api('/leads/' + lead.id, { method: 'DELETE' })
+        .then(function () { card.remove(); loadStats(); })
+        .catch(function (e) { del.textContent = e.message; });
+    });
+    actions.appendChild(del);
     card.appendChild(actions);
 
     var notes = el('textarea');
